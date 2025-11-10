@@ -20,6 +20,10 @@ contract GKoiERC721AC is OwnableBasic, ERC721AC, ERC2981, BasicRoyalties {
         BasicRoyalties(royaltyReceiver_, royaltyFeeNumerator_) {
     }
 
+    function contractURI() public view returns (string memory) {
+        return "https://external-link-url.com/my-contract-metadata.json";
+    }
+
     function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721AC, ERC2981) returns (bool) {
         return ERC721AC.supportsInterface(interfaceId) ||
             ERC2981.supportsInterface(interfaceId);
