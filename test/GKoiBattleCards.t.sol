@@ -253,6 +253,32 @@ contract GKoiBattleCardsTest is Test, Helper {
         assertFalse(isApproved);
     }
 
+    function test_approve() public {
+        address to = address(0x123);
+        uint256 quantity = 1;
+        vm.prank(deployer);
+        gKoiBattleCards.mint(deployer, quantity);
+
+        uint256 tokenId = 0; // First token minted
+        vm.prank(deployer);
+        gKoiBattleCards.approve(to, tokenId);
+
+        address approved = gKoiBattleCards.getApproved(tokenId);
+        assertEq(approved, to);
+    }
+
+    function testRevert_Approve_NotOwnerNorApproved() public {
+        address to = address(0x123);
+        uint256 quantity = 1;
+        vm.prank(deployer);
+        gKoiBattleCards.mint(deployer, quantity);
+
+        uint256 tokenId = 0; // First token minted
+        vm.prank(address(0x456));
+        vm.expectRevert("ApprovalCallerNotOwnerNorApproved()");
+        gKoiBattleCards.approve(to, tokenId);
+    }
+
     function test_Fallback() public {
         (bool success, ) = address(gKoiBattleCards).call{value: 1 ether}("");
         assertFalse(success);
