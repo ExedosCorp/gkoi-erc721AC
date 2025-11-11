@@ -6,19 +6,14 @@ import {GKoiBattleCards} from "../src/GKoiBattleCards.sol";
 import {HelperConfig} from "./HelperConfig.s.sol";
 
 contract DeployGKoiBattleCards is Script {
-    function run() external returns(GKoiBattleCards) {
-
+    function run() external returns (GKoiBattleCards) {
         HelperConfig config = new HelperConfig();
-        (uint256 deployerPrivateKey, address royaltyReceiver, uint96 royalty, string memory contractURI) = config.activeNetworkConfig();
+        (uint256 deployerPrivateKey, address royaltyReceiver, uint96 royalty, string memory contractURI) =
+            config.activeNetworkConfig();
 
         vm.startBroadcast(deployerPrivateKey);
-        GKoiBattleCards gKoiBattleCards = new GKoiBattleCards(
-            royaltyReceiver,
-            royalty,
-            "GKoi Battle Cards",
-            "GKOI",
-            contractURI
-        );
+        GKoiBattleCards gKoiBattleCards =
+            new GKoiBattleCards(royaltyReceiver, royalty, "GKoi BattleCards", "GKOI", contractURI);
         vm.stopBroadcast();
 
         console.log("GKoiBattleCards deployed to:", address(gKoiBattleCards));
