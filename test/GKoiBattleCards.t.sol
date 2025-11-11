@@ -279,6 +279,53 @@ contract GKoiBattleCardsTest is Test, Helper {
         gKoiBattleCards.approve(to, tokenId);
     }
 
+    function testRevert_Approve_NonExistentToken() public {
+        address to = address(0x123);
+        uint256 nonExistentTokenId = 9999;
+        vm.prank(deployer);
+        vm.expectRevert("OwnerQueryForNonexistentToken()");
+        gKoiBattleCards.approve(to, nonExistentTokenId);
+    }
+
+    function test_renounceOwnership () public {
+        vm.prank(deployer);
+        gKoiBattleCards.renounceOwnership();
+
+        address owner = gKoiBattleCards.owner();
+        assertEq(owner, address(0));
+    }
+
+    function testRevert_renounceOwnership_NotOwner() public {
+        vm.prank(address(0x456));
+        vm.expectRevert("Ownable: caller is not the owner");
+        gKoiBattleCards.renounceOwnership();
+    }
+
+    function test_setApprovalForAll() public {
+        address operator = address(0x123);
+        vm.prank(deployer);
+        gKoiBattleCards.setApprovalForAll(operator, true);
+
+        bool isApproved = gKoiBattleCards.isApprovedForAll(deployer, operator);
+        assertTrue(isApproved);
+    }
+
+    function test_transferOwnership () public {
+        address newOwner = address(0x123);
+        vm.prank(deployer);
+        gKoiBattleCards.transferOwnership(newOwner);
+
+        address owner = gKoiBattleCards.owner();
+        assertEq(owner, newOwner);
+    }
+
+    function testRevert_transferOwnership_NotOwner() public {
+        address newOwner = address(0x123);
+        vm.prank(address(0x456));
+        vm.expectRevert("Ownable: caller is not the owner");
+        gKoiBattleCards.transferOwnership(newOwner);
+    }
+
     function test_Fallback() public {
         (bool success, ) = address(gKoiBattleCards).call{value: 1 ether}("");
         assertFalse(success);
