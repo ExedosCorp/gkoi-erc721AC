@@ -9,7 +9,7 @@ import {
 } from "@limitbreak/creator-token-standards/src/programmable-royalties/BasicRoyalties.sol";
 import {ERC2981} from "@openzeppelin/contracts/token/common/ERC2981.sol";
 
-contract GKoiBattleCards is OwnableBasic, ERC721AC, ERC2981, BasicRoyalties {
+contract GKoiBattlecards is OwnableBasic, ERC721AC, ERC2981, BasicRoyalties {
     string private _contractUri;
     string private _baseUri;
     uint256 public constant MAX_SUPPLY = 10_000;
