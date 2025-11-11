@@ -245,7 +245,7 @@ contract GKoiBattleCardsTest is Test, Helper {
         gKoiBattleCards.getApproved(nonExistentTokenId);
     }
 
-    function test_isApprovedForAll() public {
+    function test_isApprovedForAll() public view {
         address owner = address(0x123);
         address operator = address(0x456);
 
