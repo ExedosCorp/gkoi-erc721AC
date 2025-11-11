@@ -6,8 +6,9 @@ import {Script} from "forge-std/Script.sol";
 import {GKoiBattlecards} from "../src/GKoiBattlecards.sol";
 import {DeployGKoiBattlecards} from "../script/GKoiBattlecards.s.sol";
 import {HelperConfig} from "../script/HelperConfig.s.sol";
-import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {IERC2981} from "@openzeppelin/contracts/interfaces/IERC2981.sol";
+import {IERC721} from "@openzeppelin/contracts/interfaces/IERC721.sol";
+
 
 contract Helper is Script {
     address deployer;
